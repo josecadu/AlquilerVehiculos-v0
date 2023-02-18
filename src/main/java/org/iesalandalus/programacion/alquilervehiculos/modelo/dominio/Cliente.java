@@ -65,6 +65,9 @@ public class Cliente {
 		}
 		return verificador;
 	}
+	public Cliente getClienteConDni(String dni) {
+		return new Cliente ("Jarri Popottas", dni,"666999666");
+	}
 	public String getNombre() {
 		return nombre;
 	}
