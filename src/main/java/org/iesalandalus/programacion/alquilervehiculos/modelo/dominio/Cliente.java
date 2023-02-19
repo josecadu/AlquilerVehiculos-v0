@@ -6,11 +6,13 @@ import java.util.regex.Pattern;
 
 
 
+
+
 public class Cliente {
 	
 	private static String ER_DNI = "(\\d{8})([a-zA-Z])";
 	private String ER_TELEFONO = "[967]\\d{8}";
-	private String ER_NOMBRE = "([A-Z]{1}[a-zñáéíóú]+[\s]*)+$";
+	private String ER_NOMBRE = "^[A-Z][a-zñáéíóú]+([\\s][A-Z][a-zñáéíóú]+)*$";
 	private String nombre;
 	private String dni;
 	private String telefono;
@@ -28,7 +30,7 @@ public class Cliente {
 		setTelefono(telefono);
 		
 	}
-	public static boolean comprobarLetraDni(String dni) {
+	private static boolean comprobarLetraDni(String dni) {
 
 		boolean verificador = true;
 		Pattern patron;
@@ -39,7 +41,7 @@ public class Cliente {
 		comparador = patron.matcher(dni);
 
 		if (!comparador.matches()) {
-			throw new IllegalArgumentException("ERROR: el dni del cliente no tiene un formato valido");
+			throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
 		}
 
 		System.out.printf("Numero: %s%n", comparador.group(1));
@@ -65,22 +67,40 @@ public class Cliente {
 		}
 		return verificador;
 	}
-	public Cliente getClienteConDni(String dni) {
-		return new Cliente ("Jarri Popottas", dni,"666999666");
+	public static Cliente getClienteConDni(String dni) {
+		return new Cliente ("Jarri Popottas", dni,"666999666");	
+
+		
 	}
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) {
-		if (nombre!=null && nombre.length()>0)
+	public void setNombre(String nombre) throws IllegalArgumentException {
+		
+		if (nombre!=null)
 			this.nombre = nombre;
-		else throw new IllegalArgumentException("ERROR: Ha introducido un nombre no válido");
+		else 
+			throw new NullPointerException("ERROR: El nombre no puede ser nulo.");
+		if ( !nombre.matches(ER_NOMBRE))
+			throw new IllegalArgumentException("ERROR: El nombre no tiene un formato válido.");
+		
 		}
 	public String getDni() {
 		return dni;
 	}
 	private void setDni(String dni) {
-		this.dni = dni;
+		if (dni!=null)
+			this.dni = dni;
+		else 
+			throw new NullPointerException("ERROR: El DNI no puede ser nulo.");
+		
+		if  ((comprobarLetraDni(dni)!=true))
+			throw new IllegalArgumentException("ERROR: La letra del DNI no es correcta.");
+		if	( !dni.matches(ER_DNI))
+				throw new IllegalArgumentException("ERROR: El DNI no tiene un formato válido.");
+	
+	
+		
 	}
 	@Override
 	public int hashCode() {
@@ -100,11 +120,16 @@ public class Cliente {
 	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setTelefono(String telefono)  {
+		if (telefono!=null)
+			this.telefono = telefono;
+		else 
+			throw new NullPointerException("ERROR: El teléfono no puede ser nulo.");
+		if ( !telefono.matches(ER_TELEFONO))
+			throw new IllegalArgumentException("ERROR: El teléfono no tiene un formato válido.");
 	}
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", dni=" + dni + ", telefono=" + telefono + "]";
+		return  nombre + " - " + dni + " (" + telefono +")" ;
 	}
 }
