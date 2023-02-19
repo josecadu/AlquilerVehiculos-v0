@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 import java.util.Objects;
 
 public class Turismo {
-	private String ER_MARCA= "^[a-zA-Z0-9]{3,20}([\\s-][a-zA-Z0-9]+)*$";
+	private String ER_MARCA= "^[a-zA-Z0-9]{3,}([\\s-][a-zA-Z0-9]{3,})*$";
 	private String ER_MATRICULA= "[0-9]{4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}";
 	private String marca;
 	private String modelo;
