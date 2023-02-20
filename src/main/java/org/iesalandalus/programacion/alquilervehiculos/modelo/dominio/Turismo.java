@@ -19,10 +19,10 @@ public class Turismo {
 	public Turismo (Turismo turismo) {
 		if (turismo == null)
 		throw new NullPointerException("ERROR: No es posible copiar un turismo nulo.");
-		setMarca(turismo.marca);
-		setModelo(turismo.modelo);
-		setCilindrada(turismo.cilindrada);
-		setMatricula(turismo.matricula);
+		setMarca(turismo.getMarca());
+		setModelo(turismo.getModelo());
+		setCilindrada(turismo.getCilindrada());
+		setMatricula(turismo.getMatricula());
 		
 	}
 	public static Turismo getTurismoConMatricula(String matricula) {

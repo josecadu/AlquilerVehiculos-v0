@@ -17,6 +17,12 @@ public class Cliente {
 	private String dni;
 	private String telefono;
 	
+	public Cliente(String nombre, String dni, String telefono) {
+		setNombre(nombre);
+		setDni(dni);
+		setTelefono(telefono);
+		
+	}
 	public Cliente(Cliente cliente) {
 		if (cliente == null)
 			throw new NullPointerException("ERROR: No es posible copiar un cliente nulo.");
@@ -24,12 +30,7 @@ public class Cliente {
 		setDni(cliente.getDni());
 		setTelefono(cliente.getTelefono());
 	}
-	public Cliente(String nombre, String dni, String telefono) {
-		setNombre(nombre);
-		setDni(dni);
-		setTelefono(telefono);
-		
-	}
+	
 	private static boolean comprobarLetraDni(String dni) {
 
 		boolean verificador = true;
