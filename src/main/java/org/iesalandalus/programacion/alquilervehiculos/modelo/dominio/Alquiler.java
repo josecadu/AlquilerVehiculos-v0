@@ -6,9 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+import javax.naming.OperationNotSupportedException;
+
 public class Alquiler {
-	public static DateTimeFormatter FORMATO_FECHA;
-	private int PRECIO_DIA=20;
+	public static DateTimeFormatter FORMATO_FECHA= DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private static final int PRECIO_DIA=20;
 	private LocalDate fechaAlquiler;
 	private LocalDate fechaDevolucion;
 	private Cliente cliente;
@@ -18,13 +20,13 @@ public class Alquiler {
 		setCliente(cliente);
 		setTurismo(turismo);
 		setFechaAlquiler(fechaAlquiler);
-		//this.fechaDevolucion=fechaDevolucion; //por que???
+		
 	}
 	public Alquiler(Alquiler alquiler) {
 		if (alquiler == null)
-			throw new NullPointerException("ERROR: No se puede copiar un alquiler nulo");
-		setCliente(alquiler.getCliente());
-		setTurismo(alquiler.getTurismo());
+			throw new NullPointerException("ERROR: No es posible copiar un alquiler nulo.");
+		setCliente(new Cliente (alquiler.getCliente()));
+		setTurismo(new Turismo (alquiler.getTurismo()));
 		setFechaAlquiler(alquiler.getFechaAlquiler());
 		setFechaDevolucion(alquiler.getFechaDevolucion());
 	}
@@ -32,53 +34,66 @@ public class Alquiler {
 		return fechaAlquiler;
 	}
 	private void setFechaAlquiler(LocalDate fechaAlquiler) { //hay que validar la nulidad de los LocalDate??
-		if (fechaAlquiler!=null)
-		this.fechaAlquiler = fechaAlquiler;
-		else 
+		if (fechaAlquiler==null)
 			throw new NullPointerException("ERROR: La fecha de alquiler no puede ser nula.");
+		
+		if (fechaAlquiler.isAfter(LocalDate.now()))
+			throw new IllegalArgumentException("ERROR: La fecha de alquiler no puede ser futura.");
+		this.fechaAlquiler = fechaAlquiler;
 	}
 	public LocalDate getFechaDevolucion() {
 		return fechaDevolucion;
 	}
 	private void setFechaDevolucion(LocalDate fechaDevolucion) {
-		if (fechaDevolucion!=null)
-			this.fechaDevolucion = fechaDevolucion;
-			else 
-				throw new NullPointerException("ERROR: La fecha de devolución no puede ser nula.");
+		if (fechaDevolucion==null)
+			throw new NullPointerException("ERROR: La fecha de devolución no puede ser nula.");
+		if (fechaDevolucion.isAfter(LocalDate.now()))
+			throw new IllegalArgumentException("ERROR: La fecha de devolución no puede ser futura.");
+		if (fechaDevolucion.equals(fechaAlquiler) || fechaDevolucion.isBefore(fechaAlquiler))
+			throw new IllegalArgumentException("ERROR: La fecha de devolución debe ser posterior a la fecha de alquiler.");
+		this.fechaDevolucion = fechaDevolucion;
 		
 	}
 	public Cliente getCliente() {
 		return cliente;
 	}
 	private void setCliente(Cliente cliente) {
-		if (cliente!=null)
-		this.cliente = cliente;
-		else
+		if (cliente==null)
 			throw new NullPointerException("ERROR: El cliente no puede ser nulo.");
+		this.cliente =cliente;
+		
 	}
 	public Turismo getTurismo() {
 		return turismo;
 	}
 	private void setTurismo(Turismo turismo) {
-		if (turismo!=null)
-			this.turismo = turismo;
-			else
-				throw new NullPointerException("ERROR: El turismo no puede ser nulo.");
+		if (turismo==null)
+			throw new NullPointerException("ERROR: El turismo no puede ser nulo.");
+		this.turismo = turismo;
+	
 		
 	}
-	public LocalDate devolver(LocalDate fechaDevolucion) {
-	return fechaDevolucion;	
+	public void devolver(LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		if (fechaDevolucion==null)
+			throw new NullPointerException("ERROR: La fecha de devolución no puede ser nula.");
+		if (getFechaDevolucion()!=null)
+			throw new OperationNotSupportedException("ERROR: La devolución ya estaba registrada.");
+		setFechaDevolucion(fechaDevolucion);
+	
 	}
 	public int getPrecio() {
 		LocalDate fecha1 = getFechaAlquiler();
-		LocalDate fecha2 = getFechaDevolucion();
 		
-		long precioAlqLon;
+		LocalDate fecha2 = getFechaDevolucion();
+		if (fecha2!=null)
+		{
+		
 		int	factorCilindrada = turismo.getCilindrada()/10;
-		long numDias = ChronoUnit.DAYS.between(fecha1, fecha2);
-		precioAlqLon = (PRECIO_DIA-factorCilindrada)*numDias;
-		int precioAlq = (int)precioAlqLon;
-		return  precioAlq;
+		int numDias = (int)ChronoUnit.DAYS.between(fecha1, fecha2);
+		return (PRECIO_DIA+factorCilindrada)*numDias;
+		}
+		else return 0;
+		
 	}
 	@Override
 	public int hashCode() {
@@ -98,8 +113,8 @@ public class Alquiler {
 	}
 	@Override
 	public String toString() {
-		return "Alquiler [fechaAlquiler=" + fechaAlquiler + ", fechaDevolucion=" + fechaDevolucion + ", cliente="
-				+ cliente + ", turismo=" + turismo + "]";
+		if (fechaDevolucion == null)
+		return cliente + " <---> " + turismo + ", " + fechaAlquiler.format(FORMATO_FECHA) + " - " + "Aún no devuelto (" + getPrecio() + "€)";
+		else return cliente + " <---> " + turismo + ", " + fechaAlquiler.format(FORMATO_FECHA) + " - " + fechaDevolucion.format(FORMATO_FECHA) + " (" + getPrecio() + "€)";
 	}
-	
 	}
