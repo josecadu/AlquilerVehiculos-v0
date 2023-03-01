@@ -33,7 +33,7 @@ public class Alquiler {
 	public LocalDate getFechaAlquiler() {
 		return fechaAlquiler;
 	}
-	private void setFechaAlquiler(LocalDate fechaAlquiler) { //hay que validar la nulidad de los LocalDate??
+	private void setFechaAlquiler(LocalDate fechaAlquiler) { 
 		if (fechaAlquiler==null)
 			throw new NullPointerException("ERROR: La fecha de alquiler no puede ser nula.");
 		
