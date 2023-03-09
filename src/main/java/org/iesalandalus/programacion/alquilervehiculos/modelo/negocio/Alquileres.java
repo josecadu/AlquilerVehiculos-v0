@@ -68,8 +68,8 @@ public class Alquileres {
 			if (alq.getFechaDevolucion()==null) {
 				throw new NullPointerException("ERROR: El cliente tiene otro alquiler sin devolver.");
 			}
-			if (alq.getFechaDevolucion().isAfter(fechaAlquiler)) {
-				throw new IllegalArgumentException("ERROR: El cliente ya tiene un alquiler posterior.");
+			if (alq.getFechaDevolucion().isAfter(fechaAlquiler)|| alq.getFechaDevolucion().equals(fechaAlquiler)) {
+				throw new IllegalArgumentException("ERROR: El cliente tiene un alquiler posterior.");
 			}
 		}
 
@@ -77,7 +77,7 @@ public class Alquileres {
 			if (alq.getFechaDevolucion()==null) {
 				throw new NullPointerException("ERROR: El turismo actualmente esta alquilado. ");
 			}
-			if (alq.getFechaDevolucion().isAfter(fechaAlquiler)) {
+			if (alq.getFechaDevolucion().isAfter(fechaAlquiler)|| alq.getFechaDevolucion().equals(fechaAlquiler)) {
 				throw new IllegalArgumentException("ERROR: El turismo tiene un alquiler posterior.");
 			}
 		}

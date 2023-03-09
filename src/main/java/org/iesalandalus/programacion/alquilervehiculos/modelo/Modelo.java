@@ -45,10 +45,8 @@ public class Modelo {
 			throw new NullPointerException("ERROR: No se puede insertar unn alquiler nulo.");
 		Cliente cliente = clientes.buscar(alquiler.getCliente());
 		Turismo turismo = turismos.buscar(alquiler.getTurismo());
-		if (cliente== null)
+		if (cliente== null || turismo==null)
 			throw new OperationNotSupportedException("ERROR: No existe cliente del alquiler.");
-		if (turismo==null)
-			throw new OperationNotSupportedException("ERROR: No existe un turismo del alquiler.");
 		alquileres.insertar(new Alquiler(alquiler));
 	}
 	public Cliente buscar(Cliente cliente) {
@@ -56,7 +54,7 @@ public class Modelo {
 		
 		if (clienteB==null)
 			return null;
-		else return clienteB = new Cliente(clienteB.getNombre(),clienteB.getDni(),clienteB.getTelefono());
+		else return new Cliente(clienteB.getNombre(),clienteB.getDni(),clienteB.getTelefono());
 		
 
 	}
@@ -64,13 +62,13 @@ public class Modelo {
 		Turismo turismoB = turismos.buscar (turismo);
 		if (turismoB==null)
 			return null;
-		else return turismoB = new Turismo(turismoB.getMarca(),turismoB.getModelo(),turismoB.getCilindrada(),turismoB.getMatricula());
+		else return new Turismo(turismoB.getMarca(),turismoB.getModelo(),turismoB.getCilindrada(),turismoB.getMatricula());
 	}
 	public Alquiler buscar(Alquiler alquiler) {
 		Alquiler alquilerB = alquileres.buscar(alquiler);
 		if (alquilerB==null)
 			return null;
-		else return alquilerB = new Alquiler(alquilerB.getCliente(),alquilerB.getTurismo(),alquilerB.getFechaAlquiler());
+		else return new Alquiler(alquilerB.getCliente(),alquilerB.getTurismo(),alquilerB.getFechaAlquiler());
 	}
 	public void modificar(Cliente cliente,String nombre, String telefono) throws OperationNotSupportedException {
 		if (cliente== null)
@@ -87,7 +85,7 @@ public class Modelo {
 
 		clientes.borrar(cliente);
 
-	}
+	} 
 	public void borrar(Turismo turismo) throws OperationNotSupportedException {
 
 		turismos.borrar(turismo);

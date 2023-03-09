@@ -28,7 +28,9 @@ public class Alquiler {
 		setCliente(new Cliente (alquiler.getCliente()));
 		setTurismo(new Turismo (alquiler.getTurismo()));
 		setFechaAlquiler(alquiler.getFechaAlquiler());
+		if (fechaDevolucion!=null)
 		setFechaDevolucion(alquiler.getFechaDevolucion());
+			
 	}
 	public LocalDate getFechaAlquiler() {
 		return fechaAlquiler;
