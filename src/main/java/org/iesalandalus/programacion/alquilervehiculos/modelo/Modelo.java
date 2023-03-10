@@ -8,20 +8,20 @@ import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Clientes;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Turismos;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Vehiculos;
 
 public class Modelo {
 	private Clientes clientes;
-	private Turismos turismos;
+	private Vehiculos turismos;
 	private Alquileres alquileres;
 	public Modelo() {	
 	}
 	public void comenzar() {
 		clientes = new Clientes();
-		turismos = new Turismos();
+		turismos = new Vehiculos();
 		alquileres = new Alquileres();
 
 	}
@@ -35,16 +35,16 @@ public class Modelo {
 		clientes.insertar(new Cliente(cliente));
 
 	}
-	public void insertar(Turismo turismo) throws OperationNotSupportedException {
+	public void insertar(Vehiculo turismo) throws OperationNotSupportedException {
 
-		turismos.insertar(new Turismo(turismo));
+		turismos.insertar(new Vehiculo(turismo));
 
 	}
 	public void insertar(Alquiler alquiler)  throws OperationNotSupportedException {
 		if (alquiler== null)
 			throw new NullPointerException("ERROR: No se puede insertar unn alquiler nulo.");
 		Cliente cliente = clientes.buscar(alquiler.getCliente());
-		Turismo turismo = turismos.buscar(alquiler.getTurismo());
+		Object turismo = turismos.buscar(alquiler.getTurismo());
 		if (cliente== null || turismo==null)
 			throw new OperationNotSupportedException("ERROR: No existe cliente del alquiler.");
 		alquileres.insertar(new Alquiler(alquiler));
@@ -58,11 +58,11 @@ public class Modelo {
 		
 
 	}
-	public Turismo buscar(Turismo turismo) {
-		Turismo turismoB = turismos.buscar (turismo);
+	public Object buscar(Object turismo) {
+		Vehiculo turismoB = turismos.buscar (turismo);
 		if (turismoB==null)
 			return null;
-		else return new Turismo(turismoB.getMarca(),turismoB.getModelo(),turismoB.getCilindrada(),turismoB.getMatricula());
+		else return new Vehiculo(turismoB.getMarca(),turismoB.getModelo(),turismoB.getCilindrada(),turismoB.getMatricula());
 	}
 	public Alquiler buscar(Alquiler alquiler) {
 		Alquiler alquilerB = alquileres.buscar(alquiler);
@@ -86,7 +86,7 @@ public class Modelo {
 		clientes.borrar(cliente);
 
 	} 
-	public void borrar(Turismo turismo) throws OperationNotSupportedException {
+	public void borrar(Object turismo) throws OperationNotSupportedException {
 
 		turismos.borrar(turismo);
 	}
@@ -100,10 +100,10 @@ public class Modelo {
 			getCli.add(new Cliente(cojerCli.getNombre(),cojerCli.getDni(),cojerCli.getTelefono()));
 		return getCli;
 	}
-	public List<Turismo> getTurismos(){
-		List<Turismo> getTu = new ArrayList<>();
-		for (Turismo cojerTu : turismos.get())
-			getTu.add(new Turismo(cojerTu.getMarca(),cojerTu.getModelo(),cojerTu.getCilindrada(),cojerTu.getMatricula()));
+	public List<Vehiculo> getTurismos(){
+		List<Vehiculo> getTu = new ArrayList<>();
+		for (Vehiculo cojerTu : turismos.get())
+			getTu.add(new Vehiculo(cojerTu.getMarca(),cojerTu.getModelo(),cojerTu.getCilindrada(),cojerTu.getMatricula()));
 		return getTu;
 	}
 	public List<Alquiler> getAlquileres(){
@@ -118,7 +118,7 @@ public class Modelo {
 			getAl.add(new Alquiler(cojerAl.getCliente(),cojerAl.getTurismo(),cojerAl.getFechaAlquiler()));
 		return getAl;
 	}
-	public List<Alquiler> getAlquileres(Turismo turismo){
+	public List<Alquiler> getAlquileres(Object turismo){
 		List<Alquiler> getAl = new ArrayList<>();
 		for (Alquiler cojerAl : alquileres.get(turismo))
 			getAl.add(new Alquiler(cojerAl.getCliente(),cojerAl.getTurismo(),cojerAl.getFechaAlquiler()));

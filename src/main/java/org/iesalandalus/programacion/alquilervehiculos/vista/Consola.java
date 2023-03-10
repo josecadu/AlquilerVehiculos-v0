@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 
@@ -96,20 +96,20 @@ public static void mostrarMenu() {
 	return leerCadena("introduzca un telefono: ");
 	}
 	
-	public static Turismo leerTurismo() {
+	public static Object leerTurismo() {
 		String marca=leerCadena("Introduzca la marca del vehiculo: ");
 		String modelo=leerCadena("Introduzca el modelo del vehiculo: ");
 		int cilindrada=leerEntero("Introduzca la cilindrada del vehiculo: ");
 		String matricula=leerCadena("Introduzca la matricula del vehiculo: ");
-		return new Turismo(marca,modelo,cilindrada,matricula);
+		return new Vehiculo(marca,modelo,cilindrada,matricula);
 	}
-	public static Turismo leerTurismoMatricula() {
+	public static Vehiculo leerTurismoMatricula() {
 		String matricula=leerCadena("Introduzaca el la matricula del turismo: ");
-		return Turismo.getTurismoConMatricula(matricula);
+		return Vehiculo.getVehiculoConMatricula(matricula);
 	}
 	public static Alquiler leerAlquiler() {
 		Cliente cliente=leerClienteDni();
-		Turismo turismo=leerTurismoMatricula();
+		Vehiculo turismo=leerTurismoMatricula();
 		LocalDate fechaAlquiler=leerFecha("Introduzca la fecha de alquiler: ");
 		return new Alquiler(cliente,turismo,fechaAlquiler);
 	}

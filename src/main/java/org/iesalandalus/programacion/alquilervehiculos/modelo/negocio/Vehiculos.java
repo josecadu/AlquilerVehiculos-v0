@@ -3,19 +3,19 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.OperationNotSupportedException;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
-public class Turismos {
-	private static List<Turismo> coleccionTurismos;
+public class Vehiculos {
+	private static List<Vehiculo> coleccionTurismos;
 	
-	public Turismos() {
+	public Vehiculos() {
 		coleccionTurismos = new ArrayList<>();
 	}
 	
 	
 	
-	public List<Turismo> get(){
-		List<Turismo> nuevaColeccion = new ArrayList<>();
+	public List<Vehiculo> get(){
+		List<Vehiculo> nuevaColeccion = new ArrayList<>();
 		nuevaColeccion.addAll(coleccionTurismos);
 		return nuevaColeccion;	
 	}
@@ -28,7 +28,7 @@ public class Turismos {
 	
 	
 	
-	public void insertar(Turismo turismo) throws OperationNotSupportedException {
+	public void insertar(Vehiculo turismo) throws OperationNotSupportedException {
 		int indice;
 		indice = coleccionTurismos.indexOf(turismo);
 		if(turismo==null)
@@ -42,7 +42,7 @@ public class Turismos {
 	
 	
 	
-	public Turismo buscar(Turismo turismo) {
+	public Vehiculo buscar(Object turismo) {
 	
 	int indice;
 	indice = coleccionTurismos.indexOf(turismo);
@@ -57,7 +57,7 @@ public class Turismos {
 	
 	
 	
-	public void borrar(Turismo turismo) throws OperationNotSupportedException{
+	public void borrar(Object turismo) throws OperationNotSupportedException{
 		int indice;
 		indice = coleccionTurismos.indexOf(turismo);
 		if(turismo==null)

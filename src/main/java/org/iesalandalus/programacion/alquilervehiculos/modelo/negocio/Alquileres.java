@@ -8,7 +8,6 @@ import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 
 
 
@@ -41,7 +40,7 @@ public class Alquileres {
 
 
 
-	public List<Alquiler> get(Turismo turismo){
+	public List<Alquiler> get(Object turismo){
 
 		List<Alquiler> coleccionParaTurismo = new ArrayList<>();
 		for (Alquiler alquilerturismo : coleccionAlquileres)
@@ -58,7 +57,7 @@ public class Alquileres {
 
 
 
-	private void comprobarAlquiler(Cliente cliente, Turismo turismo, LocalDate fechaAlquiler) {
+	private void comprobarAlquiler(Cliente cliente, Object turismo, LocalDate fechaAlquiler) {
 		if (cliente==null)
 			throw new NullPointerException("ERROR: El cliente no puede ser nulo.");
 		if (turismo==null)
