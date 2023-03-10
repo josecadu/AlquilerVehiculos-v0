@@ -60,7 +60,7 @@ public class Alquileres {
 
 	private void comprobarAlquiler(Cliente cliente, Turismo turismo, LocalDate fechaAlquiler) {
 		if (cliente==null)
-			throw new NullPointerException("ERROR: El cliente noi puede ser nulo.");
+			throw new NullPointerException("ERROR: El cliente no puede ser nulo.");
 		if (turismo==null)
 			throw new NullPointerException("ERROR: El turismo no puede ser nulo.");
 
@@ -87,14 +87,12 @@ public class Alquileres {
 
 
 	public void insertar(Alquiler alquiler) throws OperationNotSupportedException {
-		int indice;
-		indice = coleccionAlquileres.indexOf(alquiler);
-		if (indice !=-1 )
-			throw new OperationNotSupportedException("ERROR: Ya existe un alquiler con esos datos.");
-		if (alquiler==null)
+			
+		if (alquiler==null) {
 			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
-		else
-			coleccionAlquileres.add(alquiler);	
+		}
+		comprobarAlquiler(alquiler.getCliente(),alquiler.getTurismo(),alquiler.getFechaAlquiler());
+		coleccionAlquileres.add(alquiler);	
 	}
 
 

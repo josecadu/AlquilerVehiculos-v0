@@ -19,13 +19,13 @@ public class Modelo {
 	private Alquileres alquileres;
 	public Modelo() {	
 	}
-	public void Comenzar() {
+	public void comenzar() {
 		clientes = new Clientes();
 		turismos = new Turismos();
 		alquileres = new Alquileres();
 
 	}
-	public void Terminar() {
+	public void terminar() {
 		System.out.println("El modelo ha terminado.");
 	}
 

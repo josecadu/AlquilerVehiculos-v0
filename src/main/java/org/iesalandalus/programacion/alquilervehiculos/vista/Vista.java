@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.iesalandalus.programacion.alquilervehiculos.controlador.Controlador;
 
 public class Vista {
@@ -22,11 +24,11 @@ public class Vista {
 		while (opcion!=Opcion.SALIR);
 
 	}
-	public static void terminar() {
+	public void terminar() {
 		System.out.println("La vista ha finalizado");
 	}
 	
-	public static void ejecutar(Opcion opcion) {
+	public void ejecutar(Opcion opcion) {
 		
 		switch (opcion) {
 		case SALIR: 
@@ -114,7 +116,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono buscar cliente");
 	        try {
 	            System.out.println(controlador.buscar(Consola.leerCliente()));
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		
@@ -124,7 +126,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono buscar turismo");
 	        try {
 	            System.out.println(controlador.buscar(Consola.leerTurismo()));
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		
@@ -134,7 +136,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono buscar alquiler");
 	        try {
 	            System.out.println(controlador.buscar(Consola.leerAlquiler()));
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		
@@ -143,7 +145,7 @@ public class Vista {
 	private void modificarCliente() {
 		 Consola.mostrarCabecera("Selecciono modificar cliente");
 	        try {
-	            controlador.modificar(Consola.leerClienteDni(),Consola.leerCliente(),Consola.leerTelefono());
+	            controlador.modificar(Consola.leerClienteDni(),Consola.leerNombre(),Consola.leerTelefono());
 	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -194,7 +196,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono listar clientes");
 	        try {
 	            controlador.getClientes();
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		
@@ -204,7 +206,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono listar turismos");
 	        try {
 	            controlador.getTurismos();
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		
@@ -214,7 +216,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono listar alquileres");
 	        try {
 	            controlador.getAlquileres();
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 	}
@@ -223,7 +225,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono listar alquileres cliente");
 	        try {
 	            controlador.getAlquileres(Consola.leerClienteDni());
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		
@@ -233,7 +235,7 @@ public class Vista {
 		 Consola.mostrarCabecera("Selecciono listar alquileres turismo");
 	        try {
 	            controlador.getAlquileres(Consola.leerTurismoMatricula());
-	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
 		

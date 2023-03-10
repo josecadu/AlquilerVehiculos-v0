@@ -10,7 +10,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 
 public class Consola {
-private final static String PATRON_FECHA = "^([0][1-9]|[12][0-9]|3[01])(\\/|-)([0][1-9]|[1][0-2])\\2(\\d{4})(\\s)([0-1][1-9]|[2][0-3])(:)([0-5][0-9])$";
+private final static String PATRON_FECHA = "^([0-2][0-9]|3[0-1])\\/(0[1-9]|1[0-2])\\2(\\d{4})$";
 private final static DateTimeFormatter FORMATO_FECHA= DateTimeFormatter.ofPattern("dd/MM/yyyy");
 private Consola() {
 	
@@ -31,12 +31,12 @@ public static void mostrarMenu() {
 	System.out.println("____________3___INSERTAR_ALQUILER_____________");
 	System.out.println("____________4___BUSCAR_CLIENTE________________");
 	System.out.println("____________5___BUSCAR_TURISMO________________");
-	System.out.println("____________6___BUSCAR_ALQUILE________________");
+	System.out.println("____________6___BUSCAR_ALQUILER_______________");
 	System.out.println("____________7___MODIFICAR_CLIENTE_____________");
 	System.out.println("____________8___DEVOLVER_ALQUILER_____________");
 	System.out.println("____________9___BORRAR_CLIENTE________________");
 	System.out.println("____________10__BORRAR_TURISMO________________");
-	System.out.println("____________11__BORRAR_ALQUILE________________");
+	System.out.println("____________11__BORRAR_ALQUILER_______________");
 	System.out.println("____________12__LISTAR_CLIENTES_______________");
 	System.out.println("____________13__LISTAR_TURISMOS_______________");
 	System.out.println("____________14__LISTAR_ALQUILERES_____________");
