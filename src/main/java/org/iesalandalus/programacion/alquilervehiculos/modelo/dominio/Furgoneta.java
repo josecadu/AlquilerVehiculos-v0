@@ -3,101 +3,57 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 import java.util.Objects;
 
 public class Furgoneta extends Vehiculo {
-	private String ER_MARCA= "^[a-zA-Z0-9]{3,}([\\s-][a-zA-Z0-9]{3,})*$";
-	private String ER_MATRICULA= "[0-9]{4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}";
-	private String marca;
-	private String modelo;
-	private int cilindrada;
-	private String matricula;
+	private static final int FACTOR_PMA = 100;
+	private static final int FACTOR_PLAZAS = 1;
+	private int plazas;
+	private int pma;
 	
-	public Furgoneta (String marca,String modelo,int cilindrada,String matricula) {
-		setMarca(marca);
-		setModelo(modelo);
-		setCilindrada(cilindrada);
-		setMatricula(matricula);
+	public Furgoneta (String marca,String modelo,int pma,int plazas,String matricula) {
+		super(marca,modelo,matricula);
+	}
+	public int getPlazas() {
+		return plazas;
+	}
+	public void setPlazas(int plazas) {
+		if (plazas<5)
+			throw new IllegalArgumentException("ERROR: Una furgoneta no puede tener menos de 5 plazas");
+		if (plazas>9)
+			throw new IllegalArgumentException("ERROR: Eso no es una furgoneta es un autobus");
+		this.plazas = plazas;
+	}
+	public int getPma() {
+		return pma;
+	}
+	public void setPma(int pma) {
+		this.pma = pma;
 	}
 	public Furgoneta (Furgoneta furgoneta) {
-		if (furgoneta == null)
-		throw new NullPointerException("ERROR: No es posible copiar un turismo nulo.");
-		setMarca(furgoneta.getMarca());
-		setModelo(furgoneta.getModelo());
-		setCilindrada(furgoneta.getCilindrada());
-		setMatricula(furgoneta.getMatricula());
+		super(furgoneta.getMarca(),furgoneta.getModelo(),furgoneta.getMatricula());
+		setPlazas(furgoneta.getPlazas());
+		setPma(furgoneta.getPma());
 		
 	}
-	public static Furgoneta getTurismoConMatricula(String matricula) {
-		return new Furgoneta("Ford", "Focus", 1600, matricula);
-	}
+	
 
-	public String getMarca() {
-		return marca;
-	}
 
 	@Override
 	public String toString() {
-		return   marca +" "+ modelo + " (" + cilindrada + "CV) - "
-				+ matricula ;
+		return   getMarca() +" "+ getModelo() +"("+ pma +"KG)"+ " (" + plazas + "CV) - "
+				+ getMatricula() ;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(matricula);
+		return Objects.hash(getMatricula());
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Furgoneta other = (Furgoneta) obj;
-		return Objects.equals(matricula, other.matricula);
+		return super.equals(obj);
 	}
-	private void setMarca(String marca) throws IllegalArgumentException {
-		if (marca!=null)
-			this.marca = marca;
-		else 
-			throw new NullPointerException("ERROR: La marca no puede ser nula.");
-		if ( !marca.matches(ER_MARCA)||marca.isEmpty()||marca.isBlank())
-			throw new IllegalArgumentException("ERROR: La marca no tiene un formato válido.");
+	
+	@Override
+	protected int getFactorPrecio() {
 		
-	}
-
-	public String getModelo() {
-		return modelo;
-	}
-
-	private void setModelo(String modelo) throws IllegalArgumentException{
-		if (modelo!=null)
-			this.modelo = modelo;
-		else 
-			throw new NullPointerException("ERROR: El modelo no puede ser nulo.");
-		if (modelo.isEmpty() || modelo.isBlank())
-			throw new IllegalArgumentException("ERROR: El modelo no puede estar en blanco.");
-		
-	}
-
-	public int getCilindrada() {
-		return cilindrada;
-	}
-
-	private void setCilindrada(int cilindrada) {
-		if (cilindrada<=0 ||cilindrada>5000)
-			throw new IllegalArgumentException("ERROR: La cilindrada no es correcta.");
-		this.cilindrada = cilindrada;
-	}
-
-	public String getMatricula() {
-		return matricula;
-	}
-
-	private void setMatricula(String matricula) {
-		if (matricula!=null)
-			this.matricula = matricula;
-		else 
-			throw new NullPointerException("ERROR: La matrícula no puede ser nula.");
-		if ( !matricula.matches(ER_MATRICULA))
-			throw new IllegalArgumentException("ERROR: La matrícula no tiene un formato válido.");
+		return (pma / FACTOR_PMA) + (plazas * FACTOR_PLAZAS);
 	}
 	
 }

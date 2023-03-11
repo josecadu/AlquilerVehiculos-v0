@@ -19,10 +19,6 @@ public class Turismo extends Vehiculo {
 		
 		
 	}
-	public static Turismo getTurismoConMatricula(String matricula) {
-		return new Turismo("Ford", "Focus", 1400, matricula);
-	}
-
 
 	@Override
 	public String toString() {
@@ -35,17 +31,8 @@ public class Turismo extends Vehiculo {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Turismo other = (Turismo) obj;
-		return Objects.equals(getMatricula(), other.getMatricula());
+	return super.equals(obj);
 	}
-
-
 	public int getCilindrada() {
 		return cilindrada;
 	}
@@ -57,11 +44,10 @@ public class Turismo extends Vehiculo {
 	}
 
 
-
 	@Override
 	protected int getFactorPrecio() {
 		
-		return getCilindrada()/FACTOR_CILINDRADA;
+		return cilindrada/FACTOR_CILINDRADA;
 	}
 	
 }
